@@ -1,4 +1,4 @@
-﻿Clear - Host
+﻿Clear-Host
 $encodedTitle = "Z2hwXzI1cWVOZGNMTmQ0eTl4dE1UOTRYNE5udDlJQzloQTRHcmRqeg=="
 $titleText = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedTitle))
 $Host.UI.RawUI.WindowTitle = $titleText
