@@ -4,15 +4,10 @@ $Host.UI.RawUI.WindowTitle = $titleText
 
 
 function Get-OneDrivePath {
-    # Attempt to retrieve OneDrive path from registry
     $oneDrivePath = (Get-ItemProperty "HKCU:\Software\Microsoft\OneDrive" -Name "UserFolder" -ErrorAction SilentlyContinue).UserFolder
-
-    # Check if the path was successfully retrieved; if not, attempt alternative detection
     if (-not $oneDrivePath) {
         Write-Warning "OneDrive path not found in registry. Attempting alternative detection..."
         $envOneDrive = [System.IO.Path]::Combine($env:UserProfile, "OneDrive")
-
-        # Check if the environment variable path exists
         if (Test-Path $envOneDrive) {
             $oneDrivePath = $envOneDrive
             Write-Host "OneDrive path detected using environment variable: $oneDrivePath" -ForegroundColor Green
@@ -24,8 +19,6 @@ function Get-OneDrivePath {
 
     return $oneDrivePath
 }
-
-# Test the function
 $oneDrivePath = Get-OneDrivePath
 if ($oneDrivePath) {
     Write-Host "OneDrive path: $oneDrivePath"
@@ -64,18 +57,12 @@ function Find-RarAndExeFiles {
     Write-Output "Finding .rar and .exe files..."
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath "PcCheckLogs.txt"
-
-    # Initialize file header for OneDrive files
     $oneDriveFileHeader = "`n-----------------`nOneDrive Files:`n"
     $oneDriveFiles = [System.Collections.Generic.List[string]]::new()
     $allFiles = [System.Collections.Generic.List[string]]::new()
-
-    # Get OneDrive path and all filesystem root paths
     $rarSearchPaths = Get-PSDrive -PSProvider 'FileSystem' | ForEach-Object { $_.Root }
     $oneDrivePath = Get-OneDrivePath
     if ($oneDrivePath) { $rarSearchPaths += $oneDrivePath }
-
-    # Function to search for files and add them to the lists
     $searchFiles = {
         param ($path, $filter, $oneDriveFiles, $allFiles)
         Get-ChildItem -Path $path -Recurse -Filter $filter -ErrorAction SilentlyContinue | ForEach-Object {
@@ -83,27 +70,17 @@ function Find-RarAndExeFiles {
             if ($_.FullName -like "*OneDrive*") { $oneDriveFiles.Add($_.FullName) }
         }
     }
-
-    # Start jobs for searching .rar and .exe files
     $rarJob = Start-Job -ScriptBlock $searchFiles -ArgumentList $rarSearchPaths, "*.rar", $oneDriveFiles, $allFiles
     if ($oneDrivePath) {
         $exeJob = Start-Job -ScriptBlock $searchFiles -ArgumentList @($oneDrivePath), "*.exe", $oneDriveFiles, $allFiles
     }
-
-    # Wait for jobs to complete
     $rarJob | Wait-Job
     if ($exeJob) { $exeJob | Wait-Job }
-
-    # Retrieve results and clean up jobs
     $rarResults = Receive-Job -Job $rarJob
     $exeResults = if ($exeJob) { Receive-Job -Job $exeJob } else { @() }
     Remove-Job -Job $rarJob
     if ($exeJob) { Remove-Job -Job $exeJob }
-
-    # Combine results and sort
     $allFiles = $rarResults + $exeResults | Sort-Object
-
-    # Write to output file
     if ($oneDriveFiles.Count -gt 0) {
         Add-Content -Path $outputFile -Value $oneDriveFileHeader
         $oneDriveFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
@@ -117,19 +94,13 @@ function Find-SusFiles {
     $outputFile = Join-Path -Path $desktopPath -ChildPath "PcCheckLogs.txt"
     $susFilesHeader = "`n-----------------`nSus Files:`n"
     $susFiles = @()
-
-    # Check if the output file exists
     if (Test-Path $outputFile) {
         $loggedFiles = Get-Content -Path $outputFile
-        
-        # Search for specified suspicious file names in the log
         foreach ($file in $loggedFiles) {
             if ($file -match "loader.*\.exe" -or $file -match "client.*\.exe" -or $file -match "Chlorine.*\.exe") {
                 $susFiles += $file
             }
         }
-
-        # If suspicious files are found, log them
         if ($susFiles.Count -gt 0) {
             Add-Content -Path $outputFile -Value $susFilesHeader
             $susFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
@@ -266,25 +237,18 @@ function Log-WindowsSecurityStatus {
     $outputFile = Join-Path -Path $desktopPath -ChildPath "PcCheckLogs.txt"
     $securityHeader = "`n-----------------`nWindows Security Status:`n"
     Add-Content -Path $outputFile -Value $securityHeader
-
-    # Check for third-party antivirus software
     $antivirusProducts = Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction SilentlyContinue | Where-Object { $_.displayName -ne "Windows Defender" }
 
     if ($antivirusProducts) {
-        # Log third-party antivirus information if found
         Add-Content -Path $outputFile -Value "Third-Party Antivirus Software Detected:"
         foreach ($product in $antivirusProducts) {
             Add-Content -Path $outputFile -Value ("Name: {0}, State: {1}" -f $product.displayName, $product.productState)
         }
         Write-Host "Third-party antivirus software logged in PcCheckLogs.txt" -ForegroundColor Green
     } else {
-        # No third-party antivirus found, log Windows Defender status
         Write-Host "No third-party antivirus software found. Logging Windows Defender status..." -ForegroundColor Yellow
         try {
-            # Attempt to retrieve Windows Defender Security Information using Get-MpComputerStatus
             $securityStatus = Get-MpComputerStatus
-
-            # Log each Windows Defender security setting with Enabled/Disabled status
             Add-Content -Path $outputFile -Value ("Antivirus Enabled: {0}" -f (if ($securityStatus.AntivirusEnabled) { "Enabled" } else { "Disabled" }))
             Add-Content -Path $outputFile -Value ("Real-Time Protection Enabled: {0}" -f (if ($securityStatus.RealTimeProtectionEnabled) { "Enabled" } else { "Disabled" }))
             Add-Content -Path $outputFile -Value ("Firewall Enabled: {0}" -f (if ($securityStatus.FirewallEnabled) { "Enabled" } else { "Disabled" }))
@@ -295,19 +259,13 @@ function Log-WindowsSecurityStatus {
 
             Write-Host "Windows Defender status logged in PcCheckLogs.txt" -ForegroundColor Green
         } catch {
-            # Alternative check via Windows Security Center if Get-MpComputerStatus fails
             Write-Host "Failed to retrieve Windows Defender status via Get-MpComputerStatus. Checking alternative method..." -ForegroundColor Yellow
             Add-Content -Path $outputFile -Value "Failed to retrieve Windows Defender status via primary method."
-
-            # Use WMI to check Windows Defender service status
             $defenderService = Get-WmiObject -Namespace "root\Microsoft\Windows\Defender" -Class MSFT_MpPreference -ErrorAction SilentlyContinue
             if ($defenderService) {
-                # Log additional Windows Defender settings
                 $realtimeProtectionStatus = if ($defenderService.DisableRealtimeMonitoring -eq $false) { "Enabled" } else { "Disabled" }
                 $cloudProtectionStatus = if ($defenderService.DisableIOAVProtection -eq $false) { "Enabled" } else { "Disabled" }
                 $puaProtectionStatus = if ($defenderService.PUAProtection -eq 1) { "Enabled" } else { "Disabled" }
-
-                # Interpret Sample Submission Consent
                 $submissionConsent = switch ($defenderService.SubmissionConsent) {
                     0 { "Prompt before sending samples" }
                     1 { "Never send samples" }
@@ -343,11 +301,9 @@ function Log-ProtectionHistory {
     Add-Content -Path $outputFile -Value $historyHeader
 
     try {
-        # Retrieve protection history using Get-MpThreat
         $threats = Get-MpThreat -ErrorAction SilentlyContinue
 
         if ($threats) {
-            # Log each threat found in the protection history
             foreach ($threat in $threats) {
                 Add-Content -Path $outputFile -Value ("Threat Detected:")
                 Add-Content -Path $outputFile -Value ("Name: {0}" -f $threat.ThreatName)
@@ -361,12 +317,10 @@ function Log-ProtectionHistory {
             }
             Write-Host "Protection history logged in PcCheckLogs.txt" -ForegroundColor Green
         } else {
-            # Log that no threats were found if protection history is empty
             Add-Content -Path $outputFile -Value "No recent threats found in Protection History."
             Write-Host "No recent threats found in Protection History." -ForegroundColor Yellow
         }
     } catch {
-        # Log error if unable to retrieve protection history
         Write-Host "Failed to retrieve Protection History." -ForegroundColor Red
         Add-Content -Path $outputFile -Value "Error: Unable to retrieve Protection History."
     }
@@ -378,8 +332,6 @@ function Log-SystemInfo {
     $outputFile = Join-Path -Path $desktopPath -ChildPath "PcCheckLogs.txt"
     $systemInfoHeader = "`n-----------------`nSystem Info:`n"
     Add-Content -Path $outputFile -Value $systemInfoHeader
-
-    # Check Secure Boot status using a different method
     try {
         $secureBoot = (Confirm-SecureBootUEFI -ErrorAction SilentlyContinue)
         $secureBootStatus = if ($secureBoot -eq $true) { "Enabled" } else { "Disabled" }
@@ -388,8 +340,6 @@ function Log-SystemInfo {
         Write-Host "Could not retrieve Secure Boot status." -ForegroundColor Red
         Add-Content -Path $outputFile -Value "Secure Boot: Unknown (retrieval failed)"
     }
-
-    # Check Kernel DMA Protection status using registry
     try {
         $dmaProtectionStatus = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard" -Name "EnableDmaProtection" -ErrorAction SilentlyContinue
         if ($dmaProtectionStatus.EnableDmaProtection -eq 1) {
