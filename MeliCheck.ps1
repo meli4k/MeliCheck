@@ -64,59 +64,51 @@ function Find-RarAndExeFiles {
     Write-Output "Finding .rar and .exe files..."
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath "PcCheckLogs.txt"
-    $oneDriveFileHeader = "`n-----------------`nOneDrive Files:`n"
-    $oneDriveFiles = @()
 
-    $rarSearchPaths = @()
-    Get-PSDrive -PSProvider 'FileSystem' | ForEach-Object { $rarSearchPaths += $_.Root }
+    # Initialize file header for OneDrive files
+    $oneDriveFileHeader = "`n-----------------`nOneDrive Files:`n"
+    $oneDriveFiles = [System.Collections.Generic.List[string]]::new()
+    $allFiles = [System.Collections.Generic.List[string]]::new()
+
+    # Get OneDrive path and all filesystem root paths
+    $rarSearchPaths = Get-PSDrive -PSProvider 'FileSystem' | ForEach-Object { $_.Root }
     $oneDrivePath = Get-OneDrivePath
     if ($oneDrivePath) { $rarSearchPaths += $oneDrivePath }
 
-    $jobs = @()
-
-    $rarJob = {
-        param ($searchPaths, $outputFile, $oneDriveFiles)
-        $allFiles = @()
-        foreach ($path in $searchPaths) {
-            Get-ChildItem -Path $path -Recurse -Filter "*.rar" -ErrorAction SilentlyContinue | ForEach-Object {
-                $allFiles += $_.FullName
-                if ($_.FullName -like "*OneDrive*") { $oneDriveFiles += $_.FullName }
-            }
+    # Function to search for files and add them to the lists
+    $searchFiles = {
+        param ($path, $filter, $oneDriveFiles, $allFiles)
+        Get-ChildItem -Path $path -Recurse -Filter $filter -ErrorAction SilentlyContinue | ForEach-Object {
+            $allFiles.Add($_.FullName)
+            if ($_.FullName -like "*OneDrive*") { $oneDriveFiles.Add($_.FullName) }
         }
-        return $allFiles
     }
 
-    $exeJob = {
-        param ($oneDrivePath, $outputFile, $oneDriveFiles)
-        $exeFiles = @()
-        if ($oneDrivePath) {
-            Get-ChildItem -Path $oneDrivePath -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue | ForEach-Object {
-                $exeFiles += $_.FullName
-                if ($_.FullName -like "*OneDrive*") { $oneDriveFiles += $_.FullName }
-            }
-        }
-        return $exeFiles
+    # Start jobs for searching .rar and .exe files
+    $rarJob = Start-Job -ScriptBlock $searchFiles -ArgumentList $rarSearchPaths, "*.rar", $oneDriveFiles, $allFiles
+    if ($oneDrivePath) {
+        $exeJob = Start-Job -ScriptBlock $searchFiles -ArgumentList @($oneDrivePath), "*.exe", $oneDriveFiles, $allFiles
     }
 
-    $jobs += Start-Job -ScriptBlock $rarJob -ArgumentList $rarSearchPaths, $outputFile, $oneDriveFiles
-    $jobs += Start-Job -ScriptBlock $exeJob -ArgumentList $oneDrivePath, $outputFile, $oneDriveFiles
+    # Wait for jobs to complete
+    $rarJob | Wait-Job
+    if ($exeJob) { $exeJob | Wait-Job }
 
-    $jobs | ForEach-Object {
-        Wait-Job $_ | Out-Null  
-        $allFiles += Receive-Job $_  
-        Remove-Job $_
-    }
+    # Retrieve results and clean up jobs
+    $rarResults = Receive-Job -Job $rarJob
+    $exeResults = if ($exeJob) { Receive-Job -Job $exeJob } else { @() }
+    Remove-Job -Job $rarJob
+    if ($exeJob) { Remove-Job -Job $exeJob }
 
-    $groupedFiles = $allFiles | Sort-Object
+    # Combine results and sort
+    $allFiles = $rarResults + $exeResults | Sort-Object
 
+    # Write to output file
     if ($oneDriveFiles.Count -gt 0) {
         Add-Content -Path $outputFile -Value $oneDriveFileHeader
         $oneDriveFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
     }
-
-    if ($groupedFiles.Count -gt 0) {
-        $groupedFiles | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
-    }
+    $allFiles | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
 }
 
 function Find-SusFiles {
