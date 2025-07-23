@@ -41,28 +41,6 @@ function Format-Output {
     "{0} : {1}" -f $name, $value -replace 'System.Byte\[\]', ''
 }
 
-function Log-FolderNames {
-    $userName = $env:UserName
-    $oneDrivePath = Get-OneDrivePath
-    $potentialPaths = @("C:\Users\$userName\Documents\My Games\Rainbow Six - Siege","$oneDrivePath\Documents\My Games\Rainbow Six - Siege")
-    $allUserNames = @()
-
-    foreach ($path in $potentialPaths) {
-        if (Test-Path -Path $path) {
-            $dirNames = Get-ChildItem -Path $path -Directory | ForEach-Object { $_.Name }
-            $allUserNames += $dirNames
-        }
-    }
-
-    $uniqueUserNames = $allUserNames | Select-Object -Unique
-
-    if ($uniqueUserNames.Count -eq 0) {
-        Write-Output "R6 directory not found."
-    } else {
-        return $uniqueUserNames
-    }
-}
-
 function Find-RarAndExeFiles {
     Write-Output "Finding .rar and .exe files..."
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
@@ -257,20 +235,6 @@ function List-BAMStateUserSettings {
 
     # Log browser folders
     Log-BrowserFolders
-    
-    # Log R6 usernames
-    $folderNames = Log-FolderNames | Sort-Object | Get-Unique
-    Add-Content -Path $outputFile -Value "`n-----------------"
-    Add-Content -Path $outputFile -Value "`nR6 Usernames:"
-
-    foreach ($name in $folderNames) {
-        Add-Content -Path $outputFile -Value $name
-        $url = "https://stats.cc/siege/$name"
-        Write-Host "Opening stats for $name on Stats.cc ..." -ForegroundColor Blue
-        Start-Process $url -ErrorAction SilentlyContinue
-        Start-Sleep -Seconds 0.5
-    }
-}
 
 function Log-WindowsInstallDate {
     Write-Host "Logging Windows install date..." -ForegroundColor DarkYellow
@@ -525,6 +489,173 @@ if ($oneDrivePath) {
     Write-Host "OneDrive path could not be determined." -ForegroundColor Yellow
 }
 
+function Log-MonitorsEDID {
+    Write-Host "`nLogging connected monitor information..." -ForegroundColor DarkYellow
+    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
+    $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
+    $header = "`n-----------------`nMonitors and EDID Information:`n"
+    Add-Content -Path $outputFile -Value $header
+
+    try {
+        $monitors = Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorID
+
+        if ($monitors) {
+            foreach ($monitor in $monitors) {
+                $name = ($monitor.UserFriendlyName | ForEach-Object { [char]$_ }) -join ""
+                $serial = ($monitor.SerialNumberID | ForEach-Object { [char]$_ }) -join ""
+                Add-Content -Path $outputFile -Value ("Monitor Name: {0}, Serial/EDID: {1}" -f $name, $serial)
+            }
+            Write-Host "Monitor EDID info logged in $logFileName" -ForegroundColor Green
+        } else {
+            Add-Content -Path $outputFile -Value "No monitor EDID info found."
+            Write-Host "No monitor info found." -ForegroundColor Yellow
+        }
+    } catch {
+        Add-Content -Path $outputFile -Value "Error retrieving monitor EDID information."
+        Write-Host "Failed to retrieve monitor EDID information." -ForegroundColor Red
+    }
+}
+
+function Log-PCIeDevices {
+    Write-Host "`nLogging PCIe devices..." -ForegroundColor DarkYellow
+    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
+    $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
+    $header = "`n-----------------`nPCIe Devices:`n"
+    Add-Content -Path $outputFile -Value $header
+
+    try {
+        $pcieDevices = Get-PnpDevice | Where-Object { $_.InstanceId -like "PCI*" }
+
+        if ($pcieDevices) {
+            foreach ($device in $pcieDevices) {
+                Add-Content -Path $outputFile -Value ("Name: {0}, Instance ID: {1}, Status: {2}" -f $device.Name, $device.InstanceId, $device.Status)
+            }
+            Write-Host "PCIe device info logged in $logFileName" -ForegroundColor Green
+        } else {
+            Add-Content -Path $outputFile -Value "No PCIe devices found."
+            Write-Host "No PCIe devices found." -ForegroundColor Yellow
+        }
+    } catch {
+        Add-Content -Path $outputFile -Value "Error retrieving PCIe devices."
+        Write-Host "Error retrieving PCIe device information." -ForegroundColor Red
+    }
+}
+
+function Log-R6AndSteamBanStatus {
+    Write-Host "`nLogging Rainbow Six Siege and Steam account status..." -ForegroundColor DarkYellow
+    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
+    $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
+    $header = "`n-----------------`nRainbow Six Siege & Steam Account Status:`n"
+    Add-Content -Path $outputFile -Value $header
+
+    $userName = $env:UserName
+    $scanResults = @{
+        R6Accounts = @()
+        SteamAccounts = @()
+    }
+
+    # R6 Paths
+    $potentialPaths = @(
+        "C:\Users\$userName\Documents\My Games\Rainbow Six - Siege",
+        "C:\Users\$userName\AppData\Local\Ubisoft Game Launcher\spool",
+        "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames"
+    )
+
+    # OneDrive R6 support
+    $oneDriveRegPaths = @(
+        "HKCU:\Software\Microsoft\OneDrive\Accounts\Business1\UserFolder",
+        "HKCU:\Software\Microsoft\OneDrive\Accounts\Personal\UserFolder",
+        "HKCU:\Software\Microsoft\OneDrive\UserFolder"
+    )
+    foreach ($regPath in $oneDriveRegPaths) {
+        try {
+            $oneDrivePath = Get-ItemProperty -Path ($regPath | Split-Path) -Name ($regPath | Split-Path -Leaf) -ErrorAction SilentlyContinue
+            if ($oneDrivePath) {
+                $potentialPaths += "$($oneDrivePath.UserFolder)\Documents\My Games\Rainbow Six - Siege"
+                break
+            }
+        } catch {}
+    }
+
+    # Add Ubisoft cache folders
+    $ubisoftCachePaths = @("ownership", "club", "conversations", "game_stats", "ptdata", "settings") | ForEach-Object {
+        "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\cache\$_"
+    }
+    $potentialPaths += $ubisoftCachePaths
+
+    $allUserNames = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($path in $potentialPaths) {
+        if (Test-Path -Path $path) {
+            if ($path -like "*\cache\*") {
+                Get-ChildItem -Path $path -File | ForEach-Object {
+                    [void]$allUserNames.Add($_.Name)
+                }
+            } else {
+                Get-ChildItem -Path $path -Directory | ForEach-Object {
+                    [void]$allUserNames.Add($_.Name)
+                }
+            }
+        }
+    }
+
+    foreach ($name in ($allUserNames | Sort-Object)) {
+        try {
+            $url = "https://stats.cc/siege/$name"
+            $response = Invoke-WebRequest -Uri $url -UseBasicParsing
+            $content = $response.Content
+
+            if ($content -match '<title>Siege Stats - Stats.CC (.*?) - Rainbow Six Siege Player Stats</title>') {
+                $accountName = $matches[1]
+                $status = "Active"
+                $banType = "None"
+
+                if ($content -match '<div id="Ubisoft Bans".*?<div>Cheating</div>') {
+                    $status = "Banned"; $banType = "Cheating"
+                } elseif ($content -match '<div id="Ubisoft Bans".*?<div>Toxic Behavior</div>') {
+                    $status = "Banned"; $banType = "Toxic Behavior"
+                } elseif ($content -match '<div id="Ubisoft Bans".*?<div>Botting</div>') {
+                    $status = "Banned"; $banType = "Botting"
+                } elseif ($content -match '<div id="Reputation Bans" class="text-sm">Reputation Bans</div>') {
+                    $status = "Banned"; $banType = "Reputation"
+                }
+
+                $resultLine = "$accountName - Status: $status, Type: $banType"
+                Add-Content -Path $outputFile -Value $resultLine
+            }
+        } catch {
+            Add-Content -Path $outputFile -Value "$name - Status: Error checking stats"
+        }
+    }
+
+    # STEAM BAN CHECK
+    Add-Content -Path $outputFile -Value "`nSteam Account Status:`n"
+    $avatarCachePath = "C:\Program Files (x86)\Steam\config\avatarcache"
+    $steamIds = @()
+
+    if (Test-Path $avatarCachePath) {
+        $steamIds += Get-ChildItem -Path $avatarCachePath -Filter "*.png" |
+                     ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_.Name) }
+    }
+
+    $loginUsersPath = "C:\Program Files (x86)\Steam\config\loginusers.vdf"
+    if (Test-Path $loginUsersPath) {
+        $content = Get-Content $loginUsersPath -Raw
+        $matches = [regex]::Matches($content, '"(7656[0-9]{13})"[\s\n]*{[\s\n]*"AccountName"\s*"([^"]*)"')
+        foreach ($match in $matches) {
+            $steamId = $match.Groups[1].Value
+            $accountName = $match.Groups[2].Value
+            try {
+                $response = Invoke-WebRequest -Uri "https://steamcommunity.com/profiles/$steamId" -UseBasicParsing
+                $banStatus = if ($response.Content -match 'profile_ban_info') { "VAC banned" } else { "No VAC bans" }
+                $resultLine = "$accountName - ID: $steamId, Status: $banStatus"
+                Add-Content -Path $outputFile -Value $resultLine
+            } catch {
+                Add-Content -Path $outputFile -Value "$accountName - ID: $steamId - Status: VAC Check Failed"
+            }
+        }
+    }
+}
+
 # Execute all functions
 List-BAMStateUserSettings
 Log-WindowsInstallDate
@@ -536,6 +667,9 @@ Log-ProtectionHistory
 Log-SystemInfo
 Find-RegistrySubkeys
 Log-LogitechScripts
+Log-MonitorsEDID
+Log-PCIeDevices
+Log-R6AndSteamBanStatus
 
 # Final steps
 $desktopPath = [System.Environment]::GetFolderPath('Desktop')
