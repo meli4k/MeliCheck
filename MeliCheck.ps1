@@ -1,7 +1,7 @@
 Clear-Host
 
-$headerBase64 = "ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAg4paI4paI4paI4paEIOKWhOKWiOKWiOKWiOKWk+KWk+KWiOKWiOKWiOKWiOKWiCAg4paI4paI4paTICAgICDilojilojilpMgICAg4paE4paI4paI4paI4paI4paEICAg4paI4paI4paRIOKWiOKWiCDilpPilojilojilojilojiloggIOKWhOKWiOKWiOKWiOKWiOKWhCAgIOKWiOKWiCDiloTilojiloAKICAgICAgICAgICAgICAgICAgICDilpPilojilojilpLiloDilojiloAg4paI4paI4paS4paT4paIICAg4paAIOKWk+KWiOKWiOKWkiAgICDilpPilojilojilpIgICDilpLilojilojiloAg4paA4paIICDilpPilojilojilpEg4paI4paI4paS4paT4paIICAg4paAIOKWkuKWiOKWiOKWgCDiloDiloggICDilojilojiloTilojilpIKICAgICAgICAgICAgICAgICAgICDilpPilojiloggICAg4paT4paI4paI4paR4paS4paI4paI4paIICAg4paS4paI4paI4paRICAgIOKWkuKWiOKWiOKWkiAgIOKWkuKWk+KWiCAgICDiloQg4paS4paI4paI4paA4paA4paI4paI4paR4paS4paI4paI4paIICAg4paS4paT4paIICAgIOKWhCDilpPilojilojilojiloTilpEKICAgICAgICAgICAgICAgICAgICDilpLilojiloggICAg4paS4paI4paIIOKWkuKWk+KWiCAg4paEIOKWkuKWiOKWiOKWkSAgICDilpHilojilojilpEgICDilpLilpPilpPiloQg4paE4paI4paI4paS4paR4paT4paIIOKWkeKWiOKWiCDilpLilpPiloggIOKWhCDilpLilpPilpPiloQg4paE4paI4paI4paS4paT4paI4paIIOKWiOKWhAogICAgICAgICAgICAgICAgICAgIOKWkuKWiOKWiOKWkiAgIOKWkeKWiOKWiOKWkuKWkeKWkuKWiOKWiOKWiOKWiOKWkuKWkeKWiOKWiOKWiOKWiOKWiOKWiOKWkuKWkeKWiOKWiOKWkSAgIOKWkiDilpPilojilojilojiloAg4paR4paR4paT4paI4paS4paR4paI4paI4paT4paR4paS4paI4paI4paI4paI4paS4paSIOKWk+KWiOKWiOKWiOKWgCDilpHilpLilojilojilpIg4paI4paECiAgICAgICAgICAgICAgICAgICAg4paRIOKWkuKWkSAgIOKWkSAg4paR4paR4paRIOKWkuKWkSDilpHilpEg4paS4paR4paTICDilpHilpHilpMgICAgIOKWkSDilpHilpIg4paSICDilpEg4paSIOKWkeKWkeKWkuKWkeKWkuKWkeKWkSDilpLilpEg4paR4paRIOKWkeKWkiDilpIgIOKWkeKWkiDilpLilpIg4paT4paSCiAgICAgICAgICAgICAgICAgICAg4paRICDilpEgICAgICDilpEg4paRIOKWkSAg4paR4paRIOKWkSDilpIgIOKWkSDilpIg4paRICAgICDilpEgIOKWkiAgICDilpIg4paR4paS4paRIOKWkSDilpEg4paRICDilpEgIOKWkSAg4paSICAg4paRIOKWkeKWkiDilpLilpEKICAgICAgICAgICAgICAgICAgICDilpEgICAgICDilpEgICAgICDilpEgICAgIOKWkSDilpEgICAg4paSIOKWkSAgIOKWkSAgICAgICAgIOKWkSAg4paR4paRIOKWkSAgIOKWkSAgIOKWkSAgICAgICAg4paRIOKWkeKWkSDilpEgCiAgICAgICAgICAgICAgICAgICAgICAgICAg4paRICAgICAg4paRICDilpEgICAg4paRICDilpEg4paRICAgICDilpEg4paRICAgICAgIOKWkSAg4paRICDilpEgICDilpEgIOKWkeKWkSDilpEgICAgICDilpEgIOKWkSAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4paRICAgICAgICAgICAgICAgICAgICAgICDilpEgICAgICAgICAgICAg"
-$headerString = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($headerBase64))
+$headerBase64 = "77u/ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAg4paI4paI4paI4paEIOKWhOKWiOKWiOKWiOKWk+KWk+KWiOKWiOKWiOKWiOKWiCAg4paI4paI4paTICAgICDilojilojilpMgICAg4paE4paI4paI4paI4paI4paEICAg4paI4paI4paRIOKWiOKWiCDilpPilojilojilojilojiloggIOKWhOKWiOKWiOKWiOKWiOKWhCAgIOKWiOKWiCDiloTilojiloAKICAgICAgICAgICAgICAgICAgICDilpPilojilojilpLiloDilojiloAg4paI4paI4paS4paT4paIICAg4paAIOKWk+KWiOKWiOKWkiAgICDilpPilojilojilpIgICDilpLilojilojiloAg4paA4paIICDilpPilojilojilpEg4paI4paI4paS4paT4paIICAg4paAIOKWkuKWiOKWiOKWgCDiloDiloggICDilojilojiloTilojilpIKICAgICAgICAgICAgICAgICAgICDilpPilojiloggICAg4paT4paI4paI4paR4paS4paI4paI4paIICAg4paS4paI4paI4paRICAgIOKWkuKWiOKWiOKWkiAgIOKWkuKWk+KWiCAgICDiloQg4paS4paI4paI4paA4paA4paI4paI4paR4paS4paI4paI4paIICAg4paS4paT4paIICAgIOKWhCDilpPilojilojilojiloTilpEKICAgICAgICAgICAgICAgICAgICDilpLilojiloggICAg4paS4paI4paIIOKWkuKWk+KWiCAg4paEIOKWkuKWiOKWiOKWkSAgICDilpHilojilojilpEgICDilpLilpPilpPiloQg4paE4paI4paI4paS4paR4paT4paIIOKWkeKWiOKWiCDilpLilpPiloggIOKWhCDilpLilpPilpPiloQg4paE4paI4paI4paS4paT4paI4paIIOKWiOKWhAogICAgICAgICAgICAgICAgICAgIOKWkuKWiOKWiOKWkiAgIOKWkeKWiOKWiOKWkuKWkeKWkuKWiOKWiOKWiOKWiOKWkuKWkeKWiOKWiOKWiOKWiOKWiOKWiOKWkuKWkeKWiOKWiOKWkSAgIOKWkiDilpPilojilojilojiloAg4paR4paR4paT4paI4paS4paR4paI4paI4paT4paR4paS4paI4paI4paI4paI4paS4paSIOKWk+KWiOKWiOKWiOKWgCDilpHilpLilojilojilpIg4paI4paECiAgICAgICAgICAgICAgICAgICAg4paRIOKWkuKWkSAgIOKWkSAg4paR4paR4paRIOKWkuKWkSDilpHilpEg4paS4paR4paTICDilpHilpHilpMgICAgIOKWkSDilpHilpIg4paSICDilpEg4paSIOKWkeKWkeKWkuKWkeKWkuKWkeKWkSDilpLilpEg4paR4paRIOKWkeKWkiDilpIgIOKWkeKWkiDilpLilpIg4paT4paSCiAgICAgICAgICAgICAgICAgICAg4paRICDilpEgICAgICDilpEg4paRIOKWkSAg4paR4paRIOKWkSDilpIgIOKWkSDilpIg4paRICAgICDilpEgIOKWkiAgICDilpIg4paR4paS4paRIOKWkSDilpEg4paRICDilpEgIOKWkSAg4paSICAg4paRIOKWkeKWkiDilpLilpEKICAgICAgICAgICAgICAgICAgICDilpEgICAgICDilpEgICAgICDilpEgICAgIOKWkSDilpEgICAg4paSIOKWkSAgIOKWkSAgICAgICAgIOKWkSAg4paR4paRIOKWkSAgIOKWkSAgIOKWkSAgICAgICAg4paRIOKWkeKWkSDilpEgCiAgICAgICAgICAgICAgICAgICAgICAgICAg4paRICAgICAg4paRICDilpEgICAg4paRICDilpEg4paRICAgICDilpEg4paRICAgICAgIOKWkSAg4paRICDilpEgICDilpEgIOKWkeKWkSDilpEgICAgICDilpEgIOKWkSAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4paRICAgICAgICAgICAgICAgICAgICAgICDilpEgICAgICAgICAgICAg"
+$headerString = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($headerBase64))
 $headerLines = $headerString -split "`n"
 
 foreach ($line in $headerLines) {
@@ -33,14 +33,7 @@ function Get-OneDrivePath {
             return $null
         }
     }
-
     return $oneDrivePath
-}
-$oneDrivePath = Get-OneDrivePath
-if ($oneDrivePath) {
-    Write-Host "OneDrive path: $oneDrivePath"
-} else {
-    Write-Host "OneDrive path could not be determined."
 }
 
 function Format-Output {
@@ -80,6 +73,7 @@ function Find-RarAndExeFiles {
     $rarSearchPaths = Get-PSDrive -PSProvider 'FileSystem' | ForEach-Object { $_.Root }
     $oneDrivePath = Get-OneDrivePath
     if ($oneDrivePath) { $rarSearchPaths += $oneDrivePath }
+    
     $searchFiles = {
         param ($path, $filter, $oneDriveFiles, $allFiles)
         Get-ChildItem -Path $path -Recurse -Filter $filter -ErrorAction SilentlyContinue | ForEach-Object {
@@ -87,22 +81,33 @@ function Find-RarAndExeFiles {
             if ($_.FullName -like "*OneDrive*") { $oneDriveFiles.Add($_.FullName) }
         }
     }
-    $rarJob = Start-Job -ScriptBlock $searchFiles -ArgumentList $rarSearchPaths, "*.rar", $oneDriveFiles, $allFiles
-    if ($oneDrivePath) {
-        $exeJob = Start-Job -ScriptBlock $searchFiles -ArgumentList @($oneDrivePath), "*.exe", $oneDriveFiles, $allFiles
+    
+    try {
+        $rarJob = Start-Job -ScriptBlock $searchFiles -ArgumentList $rarSearchPaths, "*.rar", $oneDriveFiles, $allFiles
+        $exeJob = $null
+        if ($oneDrivePath) {
+            $exeJob = Start-Job -ScriptBlock $searchFiles -ArgumentList @($oneDrivePath), "*.exe", $oneDriveFiles, $allFiles
+        }
+        
+        $rarJob | Wait-Job -ErrorAction SilentlyContinue
+        if ($exeJob) { $exeJob | Wait-Job -ErrorAction SilentlyContinue }
+        
+        $rarResults = Receive-Job -Job $rarJob -ErrorAction SilentlyContinue
+        $exeResults = if ($exeJob) { Receive-Job -Job $exeJob -ErrorAction SilentlyContinue } else { @() }
+        
+        if ($oneDriveFiles.Count -gt 0) {
+            Add-Content -Path $outputFile -Value $oneDriveFileHeader
+            $oneDriveFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
+        }
+        
+        ($rarResults + $exeResults) | Sort-Object -Unique | ForEach-Object { 
+            if ($_) { Add-Content -Path $outputFile -Value $_ }
+        }
     }
-    $rarJob | Wait-Job
-    if ($exeJob) { $exeJob | Wait-Job }
-    $rarResults = Receive-Job -Job $rarJob
-    $exeResults = if ($exeJob) { Receive-Job -Job $exeJob } else { @() }
-    Remove-Job -Job $rarJob
-    if ($exeJob) { Remove-Job -Job $exeJob }
-    $allFiles = $rarResults + $exeResults | Sort-Object
-    if ($oneDriveFiles.Count -gt 0) {
-        Add-Content -Path $outputFile -Value $oneDriveFileHeader
-        $oneDriveFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
+    finally {
+        if ($rarJob) { Remove-Job -Job $rarJob -Force -ErrorAction SilentlyContinue }
+        if ($exeJob) { Remove-Job -Job $exeJob -Force -ErrorAction SilentlyContinue }
     }
-    $allFiles | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
 }
 
 function Find-SusFiles {
@@ -111,6 +116,7 @@ function Find-SusFiles {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $susFilesHeader = "`n-----------------`nSus Files:`n"
     $susFiles = @()
+    
     if (Test-Path $outputFile) {
         $loggedFiles = Get-Content -Path $outputFile
         foreach ($file in $loggedFiles) {
@@ -118,6 +124,7 @@ function Find-SusFiles {
                 $susFiles += $file
             }
         }
+        
         if ($susFiles.Count -gt 0) {
             Add-Content -Path $outputFile -Value $susFilesHeader
             $susFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
@@ -130,66 +137,128 @@ function Find-SusFiles {
     }
 }
 
+function Log-BrowserFolders {
+    Write-Host "Fetching Downloaded Browsers" -ForegroundColor Blue
+    $registryPath = "HKLM:\SOFTWARE\Clients\StartMenuInternet"
+    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
+    $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
+    
+    if (Test-Path $registryPath) {
+        $browserFolders = Get-ChildItem -Path $registryPath -ErrorAction SilentlyContinue
+        Add-Content -Path $outputFile -Value "`n-----------------"
+        Add-Content -Path $outputFile -Value "`nBrowser Folders:"
+        foreach ($folder in $browserFolders) { 
+            Add-Content -Path $outputFile -Value $folder.PSChildName 
+        }
+    } else {
+        Write-Host "Registry path for browsers not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "`n-----------------"
+        Add-Content -Path $outputFile -Value "`nBrowser Folders: Not found"
+    }
+}
+
 function List-BAMStateUserSettings {
     Write-Host "Logging reg entries inside PowerShell..." -ForegroundColor DarkYellow
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     if (Test-Path $outputFile) { Clear-Content $outputFile }
     $loggedPaths = @{}
-     Write-Host " Fetching UserSettings Entries " -ForegroundColor Blue
+    
+    Write-Host "Fetching UserSettings Entries" -ForegroundColor Blue
     $registryPath = "HKLM:\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings"
-    $userSettings = Get-ChildItem -Path $registryPath | Where-Object { $_.Name -like "*1001" }
+    
+    if (Test-Path $registryPath) {
+        $userSettings = Get-ChildItem -Path $registryPath -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*S-1-5-21*" }
+        
+        if ($userSettings) {
+            foreach ($setting in $userSettings) {
+                Add-Content -Path $outputFile -Value "`n$($setting.PSPath)"
+                $items = Get-ItemProperty -Path $setting.PSPath -ErrorAction SilentlyContinue | Select-Object -Property *
+                if ($items) {
+                    foreach ($item in $items.PSObject.Properties) {
+                        if (($item.Name -match "exe" -or $item.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($item.Name)) {
+                            Add-Content -Path $outputFile -Value (Format-Output $item.Name $item.Value)
+                            $loggedPaths[$item.Name] = $true
+                        }
+                    }
+                }
+            }
+        } else {
+            Write-Host "No relevant user settings found." -ForegroundColor Red
+            Add-Content -Path $outputFile -Value "No BAM UserSettings entries found."
+        }
+    } else {
+        Write-Host "BAM UserSettings path not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "BAM UserSettings registry path not found."
+    }
 
-    if ($userSettings) {
-        foreach ($setting in $userSettings) {
-            Add-Content -Path $outputFile -Value "`n$($setting.PSPath)"
-            $items = Get-ItemProperty -Path $setting.PSPath | Select-Object -Property *
-            foreach ($item in $items.PSObject.Properties) {
-                if (($item.Name -match "exe" -or $item.Name -match ".rar") -and -not $loggedPaths.ContainsKey($item.Name)) {
-                    Add-Content -Path $outputFile -Value (Format-Output $item.Name $item.Value)
-                    $loggedPaths[$item.Name] = $true
+    Write-Host "Fetching Compatibility Assistant Entries" -ForegroundColor Blue
+    $compatRegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store"
+    
+    if (Test-Path $compatRegistryPath) {
+        $compatEntries = Get-ItemProperty -Path $compatRegistryPath -ErrorAction SilentlyContinue
+        if ($compatEntries) {
+            $compatEntries.PSObject.Properties | ForEach-Object {
+                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+                    $loggedPaths[$_.Name] = $true
                 }
             }
         }
     } else {
-        Write-Host "No relevant user settings found." -ForegroundColor Red
+        Write-Host "Compatibility Assistant path not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "Compatibility Assistant registry path not found."
     }
-Write-Host "Fetching Compatibility Assistant Entries"
-    $compatRegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store"
-    $compatEntries = Get-ItemProperty -Path $compatRegistryPath
-    $compatEntries.PSObject.Properties | ForEach-Object {
-        if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-            Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-            $loggedPaths[$_.Name] = $true
-        }
-    }
-Write-Host "Fetching AppsSwitched Entries" -ForegroundColor Blue
+
+    Write-Host "Fetching AppsSwitched Entries" -ForegroundColor Blue
     $newRegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
+    
     if (Test-Path $newRegistryPath) {
-        $newEntries = Get-ItemProperty -Path $newRegistryPath
-        $newEntries.PSObject.Properties | ForEach-Object {
-            if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-                Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-                $loggedPaths[$_.Name] = $true
+        $newEntries = Get-ItemProperty -Path $newRegistryPath -ErrorAction SilentlyContinue
+        if ($newEntries) {
+            $newEntries.PSObject.Properties | ForEach-Object {
+                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+                    $loggedPaths[$_.Name] = $true
+                }
             }
         }
+    } else {
+        Write-Host "AppSwitched path not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "AppSwitched registry path not found."
     }
-Write-Host "Fetching MuiCache Entries" -ForegroundColor Blue
-    $muiCachePath = "HKCR:\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
+
+    Write-Host "Fetching MuiCache Entries" -ForegroundColor Blue
+    $muiCachePath = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
+    
     if (Test-Path $muiCachePath) {
-        $muiCacheEntries = Get-ChildItem -Path $muiCachePath
-        $muiCacheEntries.PSObject.Properties | ForEach-Object {
-            if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-                Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-                $loggedPaths[$_.Name] = $true
+        $muiCacheEntries = Get-ItemProperty -Path $muiCachePath -ErrorAction SilentlyContinue
+        if ($muiCacheEntries) {
+            $muiCacheEntries.PSObject.Properties | ForEach-Object {
+                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+                    $loggedPaths[$_.Name] = $true
+                }
             }
         }
+    } else {
+        Write-Host "MuiCache path not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "MuiCache registry path not found."
     }
 
-    Get-Content $outputFile | Sort-Object | Get-Unique | Where-Object { $_ -notmatch "\{.*\}" } | ForEach-Object { $_ -replace ":", "" } | Set-Content $outputFile
+    # Clean up the output file
+    if (Test-Path $outputFile) {
+        $content = Get-Content $outputFile | 
+            Where-Object { $_ -notmatch "\{.*\}" } | 
+            Sort-Object | 
+            Get-Unique
+        $content | Set-Content $outputFile
+    }
 
+    # Log browser folders
     Log-BrowserFolders
-  
+    
+    # Log R6 usernames
     $folderNames = Log-FolderNames | Sort-Object | Get-Unique
     Add-Content -Path $outputFile -Value "`n-----------------"
     Add-Content -Path $outputFile -Value "`nR6 Usernames:"
@@ -198,53 +267,57 @@ Write-Host "Fetching MuiCache Entries" -ForegroundColor Blue
         Add-Content -Path $outputFile -Value $name
         $url = "https://stats.cc/siege/$name"
         Write-Host "Opening stats for $name on Stats.cc ..." -ForegroundColor Blue
-        Start-Process $url
+        Start-Process $url -ErrorAction SilentlyContinue
         Start-Sleep -Seconds 0.5
-    }
-}
-Write-Host " Fetching Downloaded Browsers " -ForegroundColor Blue
-function Log-BrowserFolders {
-    Write-Host "Logging reg entries inside PowerShell..." -ForegroundColor DarkYellow
-    $registryPath = "HKLM:\SOFTWARE\Clients\StartMenuInternet"
-    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
-    $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
-    if (Test-Path $registryPath) {
-        $browserFolders = Get-ChildItem -Path $registryPath
-        Add-Content -Path $outputFile -Value "`n-----------------"
-        Add-Content -Path $outputFile -Value "`nBrowser Folders:"
-        foreach ($folder in $browserFolders) { Add-Content -Path $outputFile -Value $folder.Name }
-    } else {
-        Write-Host "Registry path for browsers not found." -ForegroundColor Red
     }
 }
 
 function Log-WindowsInstallDate {
     Write-Host "Logging Windows install date..." -ForegroundColor DarkYellow
-    $os = Get-WmiObject -Class Win32_OperatingSystem
-    $installDate = $os.ConvertToDateTime($os.InstallDate)
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
-    Add-Content -Path $outputFile -Value "`n-----------------"
-    Add-Content -Path $outputFile -Value "`nWindows Installation Date: $installDate"
+    
+    try {
+        $os = Get-WmiObject -Class Win32_OperatingSystem -ErrorAction Stop
+        $installDate = $os.ConvertToDateTime($os.InstallDate)
+        Add-Content -Path $outputFile -Value "`n-----------------"
+        Add-Content -Path $outputFile -Value "`nWindows Installation Date: $installDate"
+    } catch {
+        Write-Host "Failed to retrieve Windows installation date." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "`n-----------------"
+        Add-Content -Path $outputFile -Value "`nWindows Installation Date: Unknown (retrieval failed)"
+    }
 }
 
 function Search-PrefetchFiles {
     $prefetchFolderPath = "$env:SystemRoot\Prefetch"
     $outputFile = Join-Path -Path ([System.Environment]::GetFolderPath('Desktop')) -ChildPath $logFileName
     $prefetchHeader = "`n-----------------`nPrefetch Files:`n"
+    
     if (Test-Path $prefetchFolderPath) {
-        $prefetchFiles = Get-ChildItem -Path $prefetchFolderPath -Filter "*.pf" | ForEach-Object {
-            "{0} - Last Accessed: {1}" -f $_.Name, $_.LastAccessTime
-        }
-        if ($prefetchFiles.Count -gt 0) {
+        try {
+            $prefetchFiles = Get-ChildItem -Path $prefetchFolderPath -Filter "*.pf" -ErrorAction Stop | ForEach-Object {
+                "{0} - Last Accessed: {1}" -f $_.Name, $_.LastAccessTime
+            }
+            
+            if ($prefetchFiles.Count -gt 0) {
+                Add-Content -Path $outputFile -Value $prefetchHeader
+                $prefetchFiles | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
+                Write-Host "Prefetch file information saved to $outputFile" -ForegroundColor Green
+            } else {
+                Write-Host "No prefetch files found." -ForegroundColor Yellow
+                Add-Content -Path $outputFile -Value $prefetchHeader
+                Add-Content -Path $outputFile -Value "No prefetch files found."
+            }
+        } catch {
+            Write-Host "Error accessing prefetch folder." -ForegroundColor Red
             Add-Content -Path $outputFile -Value $prefetchHeader
-            $prefetchFiles | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
-            Write-Host "Prefetch file information saved to $outputFile" -ForegroundColor Green
-        } else {
-            Write-Host "No prefetch files found."
+            Add-Content -Path $outputFile -Value "Error accessing prefetch folder."
         }
     } else {
-        Write-Host "Prefetch folder not found."
+        Write-Host "Prefetch folder not found." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value $prefetchHeader
+        Add-Content -Path $outputFile -Value "Prefetch folder not found."
     }
 }
 
@@ -254,11 +327,12 @@ function Log-LogitechScripts {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $logitechScriptsHeader = "`n-----------------`nLogitech Scripts:`n"
     Add-Content -Path $outputFile -Value $logitechScriptsHeader
+    
     $scriptsPath = Join-Path -Path $env:LocalAppData -ChildPath "LGHUB\scripts"
     
     if (Test-Path -Path $scriptsPath) {
         try {
-            $scriptFiles = Get-ChildItem -Path $scriptsPath -Recurse -File -ErrorAction SilentlyContinue
+            $scriptFiles = Get-ChildItem -Path $scriptsPath -Recurse -File -ErrorAction Stop
 
             if ($scriptFiles -and $scriptFiles.Count -gt 0) {
                 foreach ($file in $scriptFiles) {
@@ -285,59 +359,63 @@ function Log-WindowsSecurityStatus {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $securityHeader = "`n-----------------`nWindows Security Status:`n"
     Add-Content -Path $outputFile -Value $securityHeader
-    $antivirusProducts = Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction SilentlyContinue | Where-Object { $_.displayName -ne "Windows Defender" }
+    
+    try {
+        $antivirusProducts = Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction SilentlyContinue | 
+                            Where-Object { $_.displayName -ne "Windows Defender" -and $_.displayName -ne $null }
 
-    if ($antivirusProducts) {
-        Add-Content -Path $outputFile -Value "Third-Party Antivirus Software Detected:"
-        foreach ($product in $antivirusProducts) {
-            Add-Content -Path $outputFile -Value ("Name: {0}, State: {1}" -f $product.displayName, $product.productState)
-        }
-        Write-Host "Third-party antivirus software in $logFileName" -ForegroundColor Green
-    } else {
-        Write-Host "No third-party antivirus software found. Logging Windows Defender status..." -ForegroundColor Yellow
-        try {
-            $securityStatus = Get-MpComputerStatus
-            Add-Content -Path $outputFile -Value ("Antivirus Enabled: {0}" -f (if ($securityStatus.AntivirusEnabled) { "Enabled" } else { "Disabled" }))
-            Add-Content -Path $outputFile -Value ("Real-Time Protection Enabled: {0}" -f (if ($securityStatus.RealTimeProtectionEnabled) { "Enabled" } else { "Disabled" }))
-            Add-Content -Path $outputFile -Value ("Firewall Enabled: {0}" -f (if ($securityStatus.FirewallEnabled) { "Enabled" } else { "Disabled" }))
-            Add-Content -Path $outputFile -Value ("Antispyware Enabled: {0}" -f (if ($securityStatus.AntispywareEnabled) { "Enabled" } else { "Disabled" }))
-            Add-Content -Path $outputFile -Value ("AMService Enabled: {0}" -f (if ($securityStatus.AMServiceEnabled) { "Enabled" } else { "Disabled" }))
-            Add-Content -Path $outputFile -Value ("Quick Scan Age (Days): {0}" -f $securityStatus.QuickScanAge)
-            Add-Content -Path $outputFile -Value ("Full Scan Age (Days): {0}" -f $securityStatus.FullScanAge)
-
-            Write-Host "Windows Defender status logged in $logFileName" -ForegroundColor Green
-        } catch {
-            Write-Host "Failed to retrieve Windows Defender status via Get-MpComputerStatus. Checking alternative method..." -ForegroundColor Yellow
-            Add-Content -Path $outputFile -Value "Failed to retrieve Windows Defender status via primary method."
-            $defenderService = Get-WmiObject -Namespace "root\Microsoft\Windows\Defender" -Class MSFT_MpPreference -ErrorAction SilentlyContinue
-            if ($defenderService) {
-                $realtimeProtectionStatus = if ($defenderService.DisableRealtimeMonitoring -eq $false) { "Enabled" } else { "Disabled" }
-                $cloudProtectionStatus = if ($defenderService.DisableIOAVProtection -eq $false) { "Enabled" } else { "Disabled" }
-                $puaProtectionStatus = if ($defenderService.PUAProtection -eq 1) { "Enabled" } else { "Disabled" }
-                $submissionConsent = switch ($defenderService.SubmissionConsent) {
-                    0 { "Prompt before sending samples" }
-                    1 { "Never send samples" }
-                    2 { "Send safe samples automatically, prompt for sensitive ones" }
-                    3 { "Always send all samples automatically" }
-                    default { "Unknown" }
+        if ($antivirusProducts) {
+            Add-Content -Path $outputFile -Value "Third-Party Antivirus Software Detected:"
+            foreach ($product in $antivirusProducts) {
+                $state = switch ($product.productState) {
+                    "262144" { "Enabled" }
+                    "262160" { "Disabled" }
+                    "266240" { "Enabled" }
+                    "266256" { "Disabled" }
+                    "393216" { "Enabled" }
+                    "393232" { "Disabled" }
+                    "397312" { "Enabled" }
+                    "397328" { "Disabled" }
+                    default { "Unknown ($($product.productState))" }
                 }
+                Add-Content -Path $outputFile -Value ("Name: {0}, State: {1}" -f $product.displayName, $state)
+            }
+            Write-Host "Third-party antivirus software in $logFileName" -ForegroundColor Green
+        } else {
+            Write-Host "No third-party antivirus software found. Logging Windows Defender status..." -ForegroundColor Yellow
+            try {
+                $securityStatus = Get-MpComputerStatus -ErrorAction Stop
+                Add-Content -Path $outputFile -Value ("Antivirus Enabled: {0}" -f (if ($securityStatus.AntivirusEnabled) { "Enabled" } else { "Disabled" }))
+                Add-Content -Path $outputFile -Value ("Real-Time Protection Enabled: {0}" -f (if ($securityStatus.RealTimeProtectionEnabled) { "Enabled" } else { "Disabled" }))
+                Add-Content -Path $outputFile -Value ("Firewall Enabled: {0}" -f (if ($securityStatus.FirewallEnabled) { "Enabled" } else { "Disabled" }))
+                Add-Content -Path $outputFile -Value ("Antispyware Enabled: {0}" -f (if ($securityStatus.AntispywareEnabled) { "Enabled" } else { "Disabled" }))
+                Add-Content -Path $outputFile -Value ("AMService Enabled: {0}" -f (if ($securityStatus.AMServiceEnabled) { "Enabled" } else { "Disabled" }))
+                Add-Content -Path $outputFile -Value ("Quick Scan Age (Days): {0}" -f $securityStatus.QuickScanAge)
+                Add-Content -Path $outputFile -Value ("Full Scan Age (Days): {0}" -f $securityStatus.FullScanAge)
 
-                $scanAvgCpuLoadFactor = $defenderService.ScanAvgCPULoadFactor
-                $signatureUpdateInterval = $defenderService.SignatureUpdateInterval
-
-                Add-Content -Path $outputFile -Value ("Windows Defender Antivirus: {0}" -f $realtimeProtectionStatus)
-                Add-Content -Path $outputFile -Value ("Cloud Protection: {0}" -f $cloudProtectionStatus)
-                Add-Content -Path $outputFile -Value ("PUA Protection: {0}" -f $puaProtectionStatus)
-                Add-Content -Path $outputFile -Value ("Sample Submission Consent: {0}" -f $submissionConsent)
-                Add-Content -Path $outputFile -Value ("Scan Average CPU Load Factor: {0}" -f $scanAvgCpuLoadFactor)
-                Add-Content -Path $outputFile -Value ("Signature Update Interval (Hours): {0}" -f $signatureUpdateInterval)
-
-                Write-Host "Additional Windows Defender settings logged in $logFileName" -ForegroundColor Green
-            } else {
-                Write-Host "Failed to retrieve Windows Defender status from both methods." -ForegroundColor Red
-                Add-Content -Path $outputFile -Value "Unable to retrieve Windows Defender status using available methods."
+                Write-Host "Windows Defender status logged in $logFileName" -ForegroundColor Green
+            } catch {
+                Write-Host "Failed to retrieve Windows Defender status via Get-MpComputerStatus. Checking alternative method..." -ForegroundColor Yellow
+                Add-Content -Path $outputFile -Value "Failed to retrieve Windows Defender status via primary method."
+                
+                try {
+                    $defenderService = Get-Service -Name WinDefend -ErrorAction SilentlyContinue
+                    if ($defenderService) {
+                        $realtimeProtectionStatus = if ((Get-MpPreference).DisableRealtimeMonitoring -eq $false) { "Enabled" } else { "Disabled" }
+                        Add-Content -Path $outputFile -Value ("Windows Defender Antivirus: {0}" -f $realtimeProtectionStatus)
+                        Write-Host "Additional Windows Defender settings logged in $logFileName" -ForegroundColor Green
+                    } else {
+                        Add-Content -Path $outputFile -Value "Windows Defender service not found."
+                    }
+                } catch {
+                    Write-Host "Failed to retrieve Windows Defender status from both methods." -ForegroundColor Red
+                    Add-Content -Path $outputFile -Value "Unable to retrieve Windows Defender status using available methods."
+                }
             }
         }
+    } catch {
+        Write-Host "Failed to retrieve security center information." -ForegroundColor Red
+        Add-Content -Path $outputFile -Value "Error retrieving security center information."
     }
 }
 
@@ -353,7 +431,7 @@ function Log-ProtectionHistory {
 
         if ($threats) {
             foreach ($threat in $threats) {
-                Add-Content -Path $outputFile -Value ("Threat Detected:")
+                Add-Content -Path $outputFile -Value "Threat Detected:"
                 Add-Content -Path $outputFile -Value ("Name: {0}" -f $threat.ThreatName)
                 Add-Content -Path $outputFile -Value ("Severity: {0}" -f $threat.SeverityID)
                 Add-Content -Path $outputFile -Value ("Action Taken: {0}" -f $threat.ActionSuccess)
@@ -380,20 +458,28 @@ function Log-SystemInfo {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $systemInfoHeader = "`n-----------------`nSystem Info:`n"
     Add-Content -Path $outputFile -Value $systemInfoHeader
+    
     try {
-        $secureBoot = (Confirm-SecureBootUEFI -ErrorAction SilentlyContinue)
-        $secureBootStatus = if ($secureBoot -eq $true) { "Enabled" } else { "Disabled" }
-        Add-Content -Path $outputFile -Value ("Secure Boot: {0}" -f $secureBootStatus)
+        # Check Secure Boot status
+        if ((Get-Command -Name Confirm-SecureBootUEFI -ErrorAction SilentlyContinue)) {
+            $secureBoot = Confirm-SecureBootUEFI -ErrorAction SilentlyContinue
+            $secureBootStatus = if ($secureBoot -eq $true) { "Enabled" } else { "Disabled" }
+            Add-Content -Path $outputFile -Value ("Secure Boot: {0}" -f $secureBootStatus)
+        } else {
+            Add-Content -Path $outputFile -Value "Secure Boot: Not available on this system"
+        }
     } catch {
         Write-Host "Could not retrieve Secure Boot status." -ForegroundColor Red
         Add-Content -Path $outputFile -Value "Secure Boot: Unknown (retrieval failed)"
     }
+    
     try {
+        # Check Kernel DMA Protection status
         $dmaProtectionStatus = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard" -Name "EnableDmaProtection" -ErrorAction SilentlyContinue
-        if ($dmaProtectionStatus.EnableDmaProtection -eq 1) {
+        if ($dmaProtectionStatus -and $dmaProtectionStatus.EnableDmaProtection -eq 1) {
             Add-Content -Path $outputFile -Value "Kernel DMA Protection: Enabled"
         } else {
-            Add-Content -Path $outputFile -Value "Kernel DMA Protection: Disabled"
+            Add-Content -Path $outputFile -Value "Kernel DMA Protection: Disabled or not supported"
         }
     } catch {
         Write-Host "Could not retrieve Kernel DMA Protection status." -ForegroundColor Red
@@ -410,14 +496,19 @@ function Find-RegistrySubkeys {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $registryOutputHeader = "`n-----------------`nRegistry Keys under AllowedBuses:`n"
     Add-Content -Path $outputFile -Value $registryOutputHeader
+    
     if (Test-Path -Path $registryPath) {
-        $subkeys = Get-ChildItem -Path $registryPath
-        if ($subkeys.Count -eq 0) {
-            Add-Content -Path $outputFile -Value "No subkeys found (only default key exists)."
-        } else {
-            $subkeys | ForEach-Object {
-                Add-Content -Path $outputFile -Value $_.Name
+        try {
+            $subkeys = Get-ChildItem -Path $registryPath -ErrorAction Stop
+            if ($subkeys.Count -eq 0) {
+                Add-Content -Path $outputFile -Value "No subkeys found (only default key exists)."
+            } else {
+                $subkeys | ForEach-Object {
+                    Add-Content -Path $outputFile -Value $_.PSChildName
+                }
             }
+        } catch {
+            Add-Content -Path $outputFile -Value "Error accessing registry path."
         }
     } else {
         Add-Content -Path $outputFile -Value "Registry path not found."
@@ -426,6 +517,15 @@ function Find-RegistrySubkeys {
     Write-Output "Registry keys have been logged to $outputFile"
 }
 
+# Main execution
+$oneDrivePath = Get-OneDrivePath
+if ($oneDrivePath) {
+    Write-Host "OneDrive path: $oneDrivePath" -ForegroundColor Green
+} else {
+    Write-Host "OneDrive path could not be determined." -ForegroundColor Yellow
+}
+
+# Execute all functions
 List-BAMStateUserSettings
 Log-WindowsInstallDate
 Find-RarAndExeFiles
@@ -437,32 +537,41 @@ Log-SystemInfo
 Find-RegistrySubkeys
 Log-LogitechScripts
 
-
+# Final steps
 $desktopPath = [System.Environment]::GetFolderPath('Desktop')
 $logFilePath = Join-Path -Path $desktopPath -ChildPath $logFileName
 
 if (Test-Path $logFilePath) {
-    Set-Clipboard -Path $logFilePath
-    Write-Host "Log file copied to clipboard." -ForegroundColor DarkRed
+    try {
+        Set-Clipboard -Value (Get-Content -Path $logFilePath -Raw) -ErrorAction SilentlyContinue
+        Write-Host "Log file copied to clipboard." -ForegroundColor DarkRed
+    } catch {
+        Write-Host "Failed to copy log file to clipboard." -ForegroundColor Red
+    }
 } else {
     Write-Host "Log file not found on the desktop." -ForegroundColor Red
 }
 
-$desktopPath = [System.Environment]::GetFolderPath('Desktop')
-$userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
-$downloadsPath = Join-Path -Path $userProfile -ChildPath "Downloads"
-
-function Delete-FileIfExists {
-    param (
-        [string]$filePath
-    )
+# Clean up files
+function Remove-FileIfExists {
+    param ([string]$filePath)
     if (Test-Path -Path $filePath) {
-        Remove-Item -Path $filePath -Force -ErrorAction SilentlyContinue
+        try {
+            Remove-Item -Path $filePath -Force -ErrorAction Stop
+            Write-Host "Removed file: $filePath" -ForegroundColor Green
+        } catch {
+            Write-Host "Failed to remove file: $filePath" -ForegroundColor Red
+        }
     }
 }
+
+$userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
+$downloadsPath = Join-Path -Path $userProfile -ChildPath "Downloads"
 
 $targetFileDesktop = Join-Path -Path $desktopPath -ChildPath "PcCheck.txt"
 $targetFileDownloads = Join-Path -Path $downloadsPath -ChildPath "PcCheck.txt"
 
-Delete-FileIfExists -filePath $targetFileDesktop
-Delete-FileIfExists -filePath $targetFileDownloads
+Remove-FileIfExists -filePath $targetFileDesktop
+Remove-FileIfExists -filePath $targetFileDownloads
+
+Write-Host "Script execution completed." -ForegroundColor Green
