@@ -141,101 +141,61 @@ function List-BAMStateUserSettings {
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     if (Test-Path $outputFile) { Clear-Content $outputFile }
     $loggedPaths = @{}
-    
-    Write-Host "Fetching UserSettings Entries" -ForegroundColor Blue
+     Write-Host " Fetching UserSettings Entries " -ForegroundColor Blue
+
     $registryPath = "HKLM:\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings"
-    
-    if (Test-Path $registryPath) {
-        $userSettings = Get-ChildItem -Path $registryPath -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*S-1-5-21*" }
-        
-        if ($userSettings) {
-            foreach ($setting in $userSettings) {
-                Add-Content -Path $outputFile -Value "`n$($setting.PSPath)"
-                $items = Get-ItemProperty -Path $setting.PSPath -ErrorAction SilentlyContinue | Select-Object -Property *
-                if ($items) {
-                    foreach ($item in $items.PSObject.Properties) {
-                        if (($item.Name -match "exe" -or $item.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($item.Name)) {
-                            Add-Content -Path $outputFile -Value (Format-Output $item.Name $item.Value)
-                            $loggedPaths[$item.Name] = $true
-                        }
-                    }
+    $userSettings = Get-ChildItem -Path $registryPath | Where-Object { $_.Name -like "*1001" }
+
+    if ($userSettings) {
+        foreach ($setting in $userSettings) {
+            Add-Content -Path $outputFile -Value "`n$($setting.PSPath)"
+            $items = Get-ItemProperty -Path $setting.PSPath | Select-Object -Property *
+            foreach ($item in $items.PSObject.Properties) {
+                if (($item.Name -match "exe" -or $item.Name -match ".rar") -and -not $loggedPaths.ContainsKey($item.Name)) {
+                    Add-Content -Path $outputFile -Value (Format-Output $item.Name $item.Value)
+                    $loggedPaths[$item.Name] = $true
                 }
             }
-        } else {
-            Write-Host "No relevant user settings found." -ForegroundColor Red
-            Add-Content -Path $outputFile -Value "No BAM UserSettings entries found."
         }
     } else {
-        Write-Host "BAM UserSettings path not found." -ForegroundColor Red
-        Add-Content -Path $outputFile -Value "BAM UserSettings registry path not found."
+        Write-Host "No relevant user settings found." -ForegroundColor Red
     }
+Write-Host "Fetching Compatibility Assistant Entries"
 
-    Write-Host "Fetching Compatibility Assistant Entries" -ForegroundColor Blue
     $compatRegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store"
-    
-    if (Test-Path $compatRegistryPath) {
-        $compatEntries = Get-ItemProperty -Path $compatRegistryPath -ErrorAction SilentlyContinue
-        if ($compatEntries) {
-            $compatEntries.PSObject.Properties | ForEach-Object {
-                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-                    $loggedPaths[$_.Name] = $true
-                }
-            }
+    $compatEntries = Get-ItemProperty -Path $compatRegistryPath
+    $compatEntries.PSObject.Properties | ForEach-Object {
+        if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+            Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+            $loggedPaths[$_.Name] = $true
         }
-    } else {
-        Write-Host "Compatibility Assistant path not found." -ForegroundColor Red
-        Add-Content -Path $outputFile -Value "Compatibility Assistant registry path not found."
     }
-
-    Write-Host "Fetching AppsSwitched Entries" -ForegroundColor Blue
+Write-Host "Fetching AppsSwitched Entries" -ForegroundColor Blue
     $newRegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
-    
     if (Test-Path $newRegistryPath) {
-        $newEntries = Get-ItemProperty -Path $newRegistryPath -ErrorAction SilentlyContinue
-        if ($newEntries) {
-            $newEntries.PSObject.Properties | ForEach-Object {
-                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-                    $loggedPaths[$_.Name] = $true
-                }
+        $newEntries = Get-ItemProperty -Path $newRegistryPath
+        $newEntries.PSObject.Properties | ForEach-Object {
+            if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+                Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+                $loggedPaths[$_.Name] = $true
             }
         }
-    } else {
-        Write-Host "AppSwitched path not found." -ForegroundColor Red
-        Add-Content -Path $outputFile -Value "AppSwitched registry path not found."
     }
-
-    Write-Host "Fetching MuiCache Entries" -ForegroundColor Blue
-    $muiCachePath = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
-    
+Write-Host "Fetching MuiCache Entries" -ForegroundColor Blue
+    $muiCachePath = "HKCR:\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
     if (Test-Path $muiCachePath) {
-        $muiCacheEntries = Get-ItemProperty -Path $muiCachePath -ErrorAction SilentlyContinue
-        if ($muiCacheEntries) {
-            $muiCacheEntries.PSObject.Properties | ForEach-Object {
-                if (($_.Name -match "exe" -or $_.Name -match "\.rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
-                    Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
-                    $loggedPaths[$_.Name] = $true
-                }
+        $muiCacheEntries = Get-ChildItem -Path $muiCachePath
+        $muiCacheEntries.PSObject.Properties | ForEach-Object {
+            if (($_.Name -match "exe" -or $_.Name -match ".rar") -and -not $loggedPaths.ContainsKey($_.Name)) {
+                Add-Content -Path $outputFile -Value (Format-Output $_.Name $_.Value)
+                $loggedPaths[$_.Name] = $true
             }
         }
-    } else {
-        Write-Host "MuiCache path not found." -ForegroundColor Red
-        Add-Content -Path $outputFile -Value "MuiCache registry path not found."
     }
 
-    # Clean up the output file
-    if (Test-Path $outputFile) {
-        $content = Get-Content $outputFile | 
-            Where-Object { $_ -notmatch "\{.*\}" } | 
-            Sort-Object | 
-            Get-Unique
-        $content | Set-Content $outputFile
-    }
-
-    # Log browser folders
+    Get-Content $outputFile | Sort-Object | Get-Unique | Where-Object { $_ -notmatch "\{.*\}" } | ForEach-Object { $_ -replace ":", "" } | Set-Content $outputFile
     Log-BrowserFolders
-
+}
 function Log-WindowsInstallDate {
     Write-Host "Logging Windows install date..." -ForegroundColor DarkYellow
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
