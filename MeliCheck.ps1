@@ -89,31 +89,44 @@ function Find-RarAndExeFiles {
 }
 
 function Find-SusFiles {
-    Write-Output "Finding suspicious file names..."
+    Write-Output "Searching for suspiciously named files..."
+
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath $logFileName
     $susFilesHeader = "`n-----------------`nSus Files:`n"
     $susFiles = @()
-    
-    if (Test-Path $outputFile) {
-        $loggedFiles = Get-Content -Path $outputFile
-        foreach ($file in $loggedFiles) {
-            if ($file -match "loader.*\.exe" -or $file -match "client.*\.exe" -or $file -match "Chlorine.*\.exe") {
-                $susFiles += $file
+
+    # Regex for 10-char alphanumeric executable names (case-sensitive)
+    $pattern = '^[A-Za-z0-9]{10}\.exe$'
+
+    # Directories to search (you can expand this list)
+    $searchPaths = @("C:\Users", "C:\Program Files", "C:\Program Files (x86)", "C:\Windows\Temp", "C:\Temp")
+
+    foreach ($path in $searchPaths) {
+        if (Test-Path $path) {
+            try {
+                $files = Get-ChildItem -Path $path -Recurse -File -ErrorAction SilentlyContinue
+
+                foreach ($file in $files) {
+                    if ($file.Name -match $pattern -or $file.Name -ieq "Dapper.dll") {
+                        $susFiles += $file.FullName
+                    }
+                }
+            } catch {
+                Write-Output ("Error searching path '{0}': {1}" -f $path, $_.Exception.Message)
             }
         }
-        
-        if ($susFiles.Count -gt 0) {
-            Add-Content -Path $outputFile -Value $susFilesHeader
-            $susFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
-            Write-Output "Suspicious files logged in $logFileName."
-        } else {
-            Write-Output "No suspicious files found."
-        }
+    }
+
+    if ($susFiles.Count -gt 0) {
+        Add-Content -Path $outputFile -Value $susFilesHeader
+        $susFiles | Sort-Object | ForEach-Object { Add-Content -Path $outputFile -Value $_ }
+        Write-Output "Suspicious files logged in $logFileName."
     } else {
-        Write-Output "Log file not found. Unable to search for suspicious files."
+        Write-Output "No suspicious files found."
     }
 }
+
 
 function Log-BrowserFolders {
     Write-Host "Fetching Downloaded Browsers" -ForegroundColor Blue
